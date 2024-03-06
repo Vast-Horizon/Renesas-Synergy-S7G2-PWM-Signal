@@ -3,3 +3,5 @@ Demonstrating how to use an internal clock to generate PWM signal on S7G2 MCU wi
 IDE: e2 studio
 
 This project is based on the lab I did at McMaster University. The lab manual is there to guide you through the configuration process. 
+
+The src folder, which is also included in the project zip, contains the main codes for the project.
