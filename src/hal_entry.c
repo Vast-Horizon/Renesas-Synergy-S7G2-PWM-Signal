@@ -55,9 +55,14 @@ bsp_leds_t leds;
 
 
 // Frequency array, freq[0] is for testing
-uint32_t freq[9] = {2, 440, 494, 523, 587, 659, 698, 783, 830};
-uint32_t f_index = 1;
-const uint32_t noteDuration = 500;
+//uint32_t freq[9] = {2, 440, 494, 523, 587, 659, 698, 783, 830};
+//uint32_t freq[9] = {2, 440, 494, 523, 587, 659, 698, 783, 830};
+//uint32_t melody[] = { freq[0], freq[1], freq[2], freq[3], freq[4], freq[3], freq[2], freq[1], freq[0] };
+uint32_t freq[10] = {440, 494, 523, 587, 659, 659, 587, 523, 494, 440};
+uint32_t dur[10] = {100000, 100000, 100000, 100000, 100000, 200000, 200000, 200000, 200000, 300000};
+
+uint32_t f_index = 0;
+uint32_t dur_index = 0;
 
 void hal_entry(void)
 {
@@ -104,12 +109,14 @@ void hal_entry(void)
       g_ioport.p_api->pinWrite(IOPORT_PORT_06_PIN_04,buzz_level);
       duration_counts +=1;
 
-      if (duration_counts >300000){
+      if (duration_counts >dur[dur_index]){
           f_index +=1;
+          dur_index += 1;
           duration_counts = 0;
        }
-      if (f_index>9){
-          f_index = 1;
+      if (f_index>(sizeof(freq) / sizeof(freq[0]))){
+          f_index = 0;
+          dur_index = 0;
        }
 
     }
